@@ -48,10 +48,10 @@ namespace Turbaseratspel_prog2uppgift
                     Console.WriteLine("Kastar kniv");         
                     if (characterType == 1)                   //Om characterType = 1 så är det en warrior och gör då mer skada än en wizard med att kasta kniv
                     {
-                        if(new Random().Next(1,11) > 6)
+                        if(new Random().Next(1,11) > 6)       //Om attacken träffar eller inte
                         {
                             Console.WriteLine("Kniven träffar och gör " + (damage + 20) + " skada");
-                            subject.hp -= (damage + 20);
+                            subject.hp -= (damage + 20);      //Gör skada
                             
                         }
                         else
@@ -60,9 +60,9 @@ namespace Turbaseratspel_prog2uppgift
                             
                         }
                     }
-                    else if (characterType == 2)
+                    else if (characterType == 2)              //kastasr kniv som wizard
                     {
-                        if(new Random().Next(1,11) > 9)
+                        if(new Random().Next(1,11) > 9)       //slumpar om man missar eller träffar
                         {
                             Console.WriteLine("Kniven träffar och gör " + (damage - 5) + " skada");
                             subject.hp -= (damage - 5);
@@ -76,14 +76,14 @@ namespace Turbaseratspel_prog2uppgift
                     }
                     Console.WriteLine();
                     break;
-                case 2:
+                case 2:                                       //pung spark attack
                     Console.WriteLine("Sparkar pung");
                     if (characterType == 1)
                     {
-                        if (new Random().Next(1, 11) > 3)
+                        if (new Random().Next(1, 11) > 3)     //slumpar om träff eller miss
                         {
                             Console.WriteLine("Sparken träffar och gör " + (damage + 10) + " skada");
-                            subject.hp -= (damage + 10);
+                            subject.hp -= (damage + 10);      //gör skada på subject
                             
                         }
                         else
@@ -96,14 +96,12 @@ namespace Turbaseratspel_prog2uppgift
                     {
                         Console.WriteLine("Wizard är för svag och gör ingen skada.");
                         Console.WriteLine("Det gör 0 skada");
-                        
-
                     }
                     Console.WriteLine();
                     break;
-                case 3:
+                case 3:                                       //kasta eldklot attack
                     Console.WriteLine("Kastar eldklot");
-                    if (characterType == 1)                   //
+                    if (characterType == 1)                             
                     {
                         if (new Random().Next(1, 11) > 8)
                         {
@@ -119,16 +117,17 @@ namespace Turbaseratspel_prog2uppgift
                     }
                     else if (characterType == 2)
                     {
-                        if (new Random().Next(1, 11) > 10)
+                        int fireBall = new Random().Next(1, 11);
+                        if (fireBall > 9)                       //Slumpar om ännu starkare eldklot
                         {
                             Console.WriteLine("Ett enoromt eldklot kastas och gör " + (damage + 25) + " skada");
-                            subject.hp -= (damage + 15);
+                            subject.hp -= (damage + 25);
 
                         }
-                        else if (new Random().Next(1, 11) > 4)
+                        else if (fireBall > 4)                  //normalstort eldklot
                         {
-                            Console.WriteLine("Eldklotet träffar och gör " + (damage) + " skada");
-                            subject.hp -= (damage + 15);
+                            Console.WriteLine("Eldklotet träffar och gör " + (damage + 10) + " skada");
+                            subject.hp -= (damage + 10);
 
                         }
                         else
@@ -139,15 +138,15 @@ namespace Turbaseratspel_prog2uppgift
                     }
                     Console.WriteLine();
                     break;
-                case 4:
+                case 4:                                       
                     Console.WriteLine("Healar...");
-                    int heal = new Random().Next(20,50);
+                    int heal = new Random().Next(20,50);        //slumpar om healing
                     if (characterType == 1)
                     {
                         if (new Random().Next(1, 11) > 6)
                         {
-                            Console.WriteLine("Kniven träffar och gör " + (heal) + " skada");
-                            subject.hp += (heal - 20);
+                            Console.WriteLine("Healar " + (heal -20) + " hp");
+                            this.hp += (heal - 20);             //healar den som använder acitonen
                             
                         }
                         else
@@ -158,13 +157,13 @@ namespace Turbaseratspel_prog2uppgift
                     }
                     else if (characterType == 2)
                     {
-                         Console.WriteLine("Healar " + heal + " hp");
-                         subject.hp += (heal + 30);
+                         Console.WriteLine("Healar " + (heal + 30) + " hp");
+                         this.hp += (heal + 30);
                          
                     }
                     Console.WriteLine();
                     break;
-                default:
+                default:                                        //om man försöker göra en action som inte finns
                     Console.WriteLine("Förstår inte...gör ingenting");
                     Console.WriteLine();
                     break;
@@ -172,13 +171,13 @@ namespace Turbaseratspel_prog2uppgift
 
         }
 
-        public void makeRandomMoveTo(Character subject)
+        public void makeRandomMoveTo(Character subject)                     //Fienden gör ett random move
         {
-            int randomMove = 1 + new Random().Next(2);
-            doActionTo(randomMove, subject);
+            int randomMove = 1 + new Random().Next(4);                      //random move melllan 1-4 move
+            doActionTo(randomMove, subject);                                //anropar doActionTo
         }
 
-        public bool isAlive()
+        public bool isAlive()                                               //kollar om folk lever
         {
             return hp > 0;
         }
